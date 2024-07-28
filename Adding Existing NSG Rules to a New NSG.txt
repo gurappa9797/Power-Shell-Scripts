@@ -1,0 +1,54 @@
+# Login to Azure
+Connect-AzAccount
+
+# Select the Subscription
+Select-AzSubscription -SubscriptionId "your-subscription-id"
+
+# Variables
+#$sourceNsgResourceGroupName = "source-nsg-resource-group-name"
+#$sourceNsgName = "source-nsg-name"
+#$targetNsgResourceGroupName = "target-nsg-resource-group-name"
+#$targetNsgName = "target-nsg-name"
+
+$sourceNsgResourceGroupName = "nsg-test-rg-01"
+$sourceNsgName = "nsg-pdtr-01"
+$targetResourceGroupName = "dns-azure-rg01"  ## Set to "*" to target all NSGs in the subscription
+$targetNsgName = "sdbox-nsg-03"
+
+# Retrieve the source NSG
+$sourceNsg = Get-AzNetworkSecurityGroup -ResourceGroupName $sourceNsgResourceGroupName -Name $sourceNsgName
+
+# Retrieve the target NSGs
+$targetNsgs = Get-AzNetworkSecurityGroup -ResourceGroupName $targetResourceGroupName -Name $targetNsgName
+
+# Loop through each target NSG
+foreach ($targetNsg in $targetNsgs) {
+    # Check if the target NSG is not the source NSG
+    if ($targetNsg.Name -ne $sourceNsg.Name -or $targetNsg.ResourceGroupName -ne $sourceNsg.ResourceGroupName) {
+        # Loop through each security rule in the source NSG
+        foreach ($rule in $sourceNsg.SecurityRules) {
+            # Check if the rule already exists in the target NSG
+            $existingRule = $targetNsg.SecurityRules | Where-Object { $_.Name -eq $rule.Name }
+            if (-not $existingRule) {
+                # Clone the rule properties to a new rule object
+                $newRule = New-AzNetworkSecurityRuleConfig -Name $rule.Name `
+                    -Description $rule.Description `
+                    -Access $rule.Access `
+                    -Protocol $rule.Protocol `
+                    -Direction $rule.Direction `
+                    -Priority $rule.Priority `
+                    -SourcePortRange $rule.SourcePortRange `
+                    -DestinationPortRange $rule.DestinationPortRange `
+                    -SourceAddressPrefix $rule.SourceAddressPrefix `
+                    -DestinationAddressPrefix $rule.DestinationAddressPrefix
+                
+                # Add the new rule to the target NSG
+                $targetNsg.SecurityRules.Add($newRule)
+            }
+        }
+        # Update the target NSG with the new rules
+        Set-AzNetworkSecurityGroup -NetworkSecurityGroup $targetNsg
+    }
+}
+
+Write-Output "NSG rules from $sourceNsgName have been added to target NSGs in the resource group/subscription."

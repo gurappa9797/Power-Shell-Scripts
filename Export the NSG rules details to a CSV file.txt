@@ -1,0 +1,43 @@
+# Login to Azure
+Connect-AzAccount
+
+# Select the Subscription
+Select-AzSubscription -SubscriptionId "your-subscription-id"
+
+# Variables
+$outputFilePath = "C:\azure-tf\all-nsgrulesfile.csv"
+
+# Retrieve all NSGs in the subscription
+$nsgs = Get-AzNetworkSecurityGroup -ResourceGroupName "*" 
+
+# Create an array to hold the rule details
+$nsgRules = @()
+
+# Loop through each NSG
+foreach ($nsg in $nsgs) {
+    # Loop through each security rule in the NSG and collect details, excluding default rules
+    foreach ($rule in $nsg.SecurityRules) {
+        if ($rule.Name -notmatch "^[a-z]{3}-") { # Adjust this regex to match your default rule naming pattern
+            $ruleDetails = [PSCustomObject]@{
+                NSGName                = $nsg.Name
+                ResourceGroupName      = $nsg.ResourceGroupName
+                RuleName               = $rule.Name
+                Priority               = $rule.Priority
+                Direction              = $rule.Direction
+                Access                 = $rule.Access
+                Protocol               = $rule.Protocol
+                SourcePortRange        = $rule.SourcePortRange
+                DestinationPortRange   = $rule.DestinationPortRange
+                SourceAddressPrefix    = $rule.SourceAddressPrefix
+                DestinationAddressPrefix = $rule.DestinationAddressPrefix
+                Description            = $rule.Description
+            }
+            $nsgRules += $ruleDetails
+        }
+    }
+}
+
+# Export the rule details to a CSV file
+$nsgRules | Export-Csv -Path $outputFilePath -NoTypeInformation
+
+Write-Output "NSG rules exported to $outputFilePath"
