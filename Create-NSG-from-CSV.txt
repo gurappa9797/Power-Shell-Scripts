@@ -1,0 +1,23 @@
+[CmdletBinding()]
+Param(
+[parameter(Mandatory=$true,position=0)]
+[String] $Path
+)
+
+$NSG_Rules = Import-Csv $Path
+foreach($rule in $NSG_Rules) {
+    
+   New-AzNetworkSecurityGroup -Name $rule.NSGName -ResourceGroupName $rule.RGName -Location $rule.Location -Force
+}
+
+foreach($rule in $NSG_Rules) {
+    
+   $nsg = Get-AzNetworkSecurityGroup -Name $rule.NSGName -ResourceGroupName $rule.RGName
+
+   $nsg | Add-AzNetworkSecurityRuleConfig -Name $rule.Name -Description $rule.Description `
+    -Protocol $rule.Protocol -SourcePortRange $rule.SourcePortRange.Split(", ") -DestinationPortRange $rule.DestinationPortRange.Split(", ")  `
+    -SourceAddressPrefix $rule.SourceAddressPrefix.Split(", ") -DestinationAddressPrefix $rule.DestinationAddressPrefix.Split(", ") `
+    -Access $rule.Access -Priority $rule.Priority -Direction $rule.Direction -ErrorAction SilentlyContinue
+    Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg
+}
+

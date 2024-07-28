@@ -1,0 +1,41 @@
+NSGName, RGName, Location, Name, Description, Protocol, SourcePortRange, DestinationPortRange, SourceAddressPrefix, DestinationAddressPrefix, Access, Priority, Direction
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulerouterdmz3389ib105,rulerouterrdp3389ib,TCP,*,3389,*,*,Allow,105,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulerouterdmz3299ib110,rulerouterpip3299ib,TCP,*,3299,*,*,Allow,110,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulerouterdenytcpib1500,ruledmzdenytcpib,TCP,*,80,*,*,Deny,1500,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulerouterdenyudpib1505,ruledmzdenyudpib,UDP,*,443,*,*,Deny,1505,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulerouterapp3299ib115,rulerouterapp3299ib,TCP,*,3299,*,*,Allow,115,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulesaprtrapp,rulesaprtrapp,TCP,*,"22, 111, 3389 ",*,*,Allow,111,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulesaprtrdb,rulesaprtrdb,TCP,*,*,*,*,Allow,112,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulesapjmp,rulesapjmp,TCP,*,3389,*,*,Allow,113,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,ruleadallowob,ruleadallow,*,*,"53, 88, 123, 135",*,*,Allow,114,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulertrmasob,rulertrmasob,TCP,*,"22, 8443",*,*,Allow,116,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulesaprtrsapserv9,rulesaprtrsapserv9,TCP,*,3299,*,*,Allow,300,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulealballow,rulealballow,*,*,58,AzureLoadBalancer,*,Allow,1010,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,ruleadallow,ruleadallow,*,*,"53, 88, 123, 135, 389, 445, 636, 1025-5000, 49152-65135",,*,Allow,114,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,ruledmzdenytcpob,ruledmzdenytcpob,TCP,*,*,VirtualNetwork,VirtualNetwork,Deny,1500,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulerouterzen5985ib120,rulerouterzen5985ib120,TCP,*,5985,*,*,Allow,120,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,ruledmzdenyudpob,ruledmzdenyudpob,UDP,*,*,VirtualNetwork,VirtualNetwork,Deny,1505,Outbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulevnetrtrallow,rulevnetallow,*,*,3389,VirtualNetwork,*,Allow,1000,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulesepmib,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Inbound
+nsg-dmz-rtr,nsg-test-rg-01,eastus,rulesepmob,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Outbound
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulerouterdmz3389ib105,rulerouterrdp3389ib,TCP,*,3389,*,*,Allow,105,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulerouterdmz3299ib110,rulerouterpip3299ib,TCP,*,3299,*,*,Allow,110,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulerouterdenytcpib1500,ruledmzdenytcpib,TCP,*,80,*,*,Deny,1500,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulerouterdenyudpib1505,ruledmzdenyudpib,UDP,*,443,*,*,Deny,1505,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulerouterapp3299ib115,rulerouterapp3299ib,TCP,*,3299,*,*,Allow,115,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulesaprtrapp,rulesaprtrapp,TCP,*,"22, 111, 3389 ",*,*,Allow,111,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulesaprtrdb,rulesaprtrdb,TCP,*,*,*,*,Allow,112,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulesapjmp,rulesapjmp,TCP,*,3389,*,*,Allow,113,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,ruleadallowob,ruleadallow,*,*,"53, 88, 123, 135",*,*,Allow,114,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulertrmasob,rulertrmasob,TCP,*,"22, 8443",*,*,Allow,116,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulesaprtrsapserv9,rulesaprtrsapserv9,TCP,*,3299,*,*,Allow,300,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulealballow,rulealballow,*,*,58,AzureLoadBalancer,*,Allow,1010,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,ruleadallow,ruleadallow,*,*,"53, 88, 123, 135, 389, 445, 636, 1025-5000, 49152-65135",,*,Allow,114,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,ruledmzdenytcpob,ruledmzdenytcpob,TCP,*,*,VirtualNetwork,VirtualNetwork,Deny,1500,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulerouterzen5985ib120,rulerouterzen5985ib120,TCP,*,5985,*,*,Allow,120,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,ruledmzdenyudpob,ruledmzdenyudpob,UDP,*,*,VirtualNetwork,VirtualNetwork,Deny,1505,Outbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulevnetrtrallow,rulevnetallow,*,*,3389,VirtualNetwork,*,Allow,1000,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulesepmib,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Inbound
+nsg-pdtr-01,nsg-test-rg-01,eastus,rulesepmob,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Outbound
