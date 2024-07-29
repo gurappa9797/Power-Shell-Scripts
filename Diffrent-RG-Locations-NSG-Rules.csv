@@ -1,0 +1,58 @@
+NSGName, RGName, Location, Name, Description, Protocol, SourcePortRange, DestinationPortRange, SourceAddressPrefix, DestinationAddressPrefix, Access, Priority, Direction
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulerouterdmz3389ib105,rulerouterrdp3389ib,TCP,*,3389,*,*,Allow,105,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulerouterdmz3299ib110,rulerouterpip3299ib,TCP,*,3299,*,*,Allow,110,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulerouterdenytcpib1500,ruledmzdenytcpib,TCP,*,80,*,*,Deny,1500,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulerouterdenyudpib1505,ruledmzdenyudpib,UDP,*,443,*,*,Deny,1505,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulerouterapp3299ib115,rulerouterapp3299ib,TCP,*,3299,*,*,Allow,115,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulesaprtrapp,rulesaprtrapp,TCP,*,"22, 111, 3389 ",*,*,Allow,111,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulesaprtrdb,rulesaprtrdb,TCP,*,*,*,*,Allow,112,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulesapjmp,rulesapjmp,TCP,*,3389,*,*,Allow,113,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,ruleadallowob,ruleadallow,*,*,"53, 88, 123, 135",*,*,Allow,114,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulertrmasob,rulertrmasob,TCP,*,"22, 8443",*,*,Allow,116,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulesaprtrsapserv9,rulesaprtrsapserv9,TCP,*,3299,*,*,Allow,300,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulealballow,rulealballow,*,*,58,AzureLoadBalancer,*,Allow,1010,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,ruleadallow,ruleadallow,*,*,"53, 88, 123, 135, 389, 445, 636, 1025-5000, 49152-65135",,*,Allow,114,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,ruledmzdenytcpob,ruledmzdenytcpob,TCP,*,*,VirtualNetwork,VirtualNetwork,Deny,1500,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulerouterzen5985ib120,rulerouterzen5985ib120,TCP,*,5985,*,*,Allow,120,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,ruledmzdenyudpob,ruledmzdenyudpob,UDP,*,*,VirtualNetwork,VirtualNetwork,Deny,1505,Outbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulevnetrtrallow,rulevnetallow,*,*,3389,VirtualNetwork,*,Allow,1000,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulesepmib,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Inbound
+ghijk-nsg-01,Terraform-Storage-RG,eastus2,rulesepmob,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulerouterdmz3389ib105,rulerouterrdp3389ib,TCP,*,3389,*,*,Allow,105,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulerouterdmz3299ib110,rulerouterpip3299ib,TCP,*,3299,*,*,Allow,110,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulerouterdenytcpib1500,ruledmzdenytcpib,TCP,*,80,*,*,Deny,1500,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulerouterdenyudpib1505,ruledmzdenyudpib,UDP,*,443,*,*,Deny,1505,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulerouterapp3299ib115,rulerouterapp3299ib,TCP,*,3299,*,*,Allow,115,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulesaprtrapp,rulesaprtrapp,TCP,*,"22, 111, 3389 ",*,*,Allow,111,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulesaprtrdb,rulesaprtrdb,TCP,*,*,*,*,Allow,112,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulesapjmp,rulesapjmp,TCP,*,3389,*,*,Allow,113,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,ruleadallowob,ruleadallow,*,*,"53, 88, 123, 135",*,*,Allow,114,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulertrmasob,rulertrmasob,TCP,*,"22, 8443",*,*,Allow,116,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulesaprtrsapserv9,rulesaprtrsapserv9,TCP,*,3299,*,*,Allow,300,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulealballow,rulealballow,*,*,58,AzureLoadBalancer,*,Allow,1010,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,ruleadallow,ruleadallow,*,*,"53, 88, 123, 135, 389, 445, 636, 1025-5000, 49152-65135",,*,Allow,114,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,ruledmzdenytcpob,ruledmzdenytcpob,TCP,*,*,VirtualNetwork,VirtualNetwork,Deny,1500,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulerouterzen5985ib120,rulerouterzen5985ib120,TCP,*,5985,*,*,Allow,120,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,ruledmzdenyudpob,ruledmzdenyudpob,UDP,*,*,VirtualNetwork,VirtualNetwork,Deny,1505,Outbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulevnetrtrallow,rulevnetallow,*,*,3389,VirtualNetwork,*,Allow,1000,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulesepmib,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Inbound
+abcd-nsg-01,ARM-Test-RG01,centralus,rulesepmob,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulerouterdmz3389ib105,rulerouterrdp3389ib,TCP,*,3389,*,*,Allow,105,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulerouterdmz3299ib110,rulerouterpip3299ib,TCP,*,3299,*,*,Allow,110,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulerouterdenytcpib1500,ruledmzdenytcpib,TCP,*,80,*,*,Deny,1500,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulerouterdenyudpib1505,ruledmzdenyudpib,UDP,*,443,*,*,Deny,1505,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulerouterapp3299ib115,rulerouterapp3299ib,TCP,*,3299,*,*,Allow,115,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulesaprtrapp,rulesaprtrapp,TCP,*,"22, 111, 3389 ",*,*,Allow,111,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulesaprtrdb,rulesaprtrdb,TCP,*,*,*,*,Allow,112,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulesapjmp,rulesapjmp,TCP,*,3389,*,*,Allow,113,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,ruleadallowob,ruleadallow,*,*,"53, 88, 123, 135",*,*,Allow,114,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulertrmasob,rulertrmasob,TCP,*,"22, 8443",*,*,Allow,116,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulesaprtrsapserv9,rulesaprtrsapserv9,TCP,*,3299,*,*,Allow,300,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulealballow,rulealballow,*,*,58,AzureLoadBalancer,*,Allow,1010,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,ruleadallow,ruleadallow,*,*,"53, 88, 123, 135, 389, 445, 636, 1025-5000, 49152-65135",,*,Allow,114,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,ruledmzdenytcpob,ruledmzdenytcpob,TCP,*,*,VirtualNetwork,VirtualNetwork,Deny,1500,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulerouterzen5985ib120,rulerouterzen5985ib120,TCP,*,5985,*,*,Allow,120,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,ruledmzdenyudpob,ruledmzdenyudpob,UDP,*,*,VirtualNetwork,VirtualNetwork,Deny,1505,Outbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulevnetrtrallow,rulevnetallow,*,*,3389,VirtualNetwork,*,Allow,1000,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulesepmib,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Inbound
+xyz-nsg-01,ARM-Test-RG01,eastus,rulesepmob,rule for SEPM server connectivity,TCP,*,"443, 8014",*,*,Allow,1011,Outbound
