@@ -5,7 +5,7 @@ Connect-AzAccount
 Select-AzSubscription -SubscriptionId "your-subscription-id"
 
 # Variables
-$outputFilePath = "C:\azure-tf\all-nsgrulesfile.csv"
+$outputFilePath = "C:\azure-tf\sai-all-nsgrulesfile.csv"
 
 # Retrieve all NSGs in the subscription
 $nsgs = Get-AzNetworkSecurityGroup -ResourceGroupName "*" 
@@ -13,27 +13,53 @@ $nsgs = Get-AzNetworkSecurityGroup -ResourceGroupName "*"
 # Create an array to hold the rule details
 $nsgRules = @()
 
+# Function to join lists into strings
+function Join-List ($list) {
+    if ($list -is [System.Collections.IEnumerable]) {
+        return [string]::Join(",", $list)
+    } else {
+        return $list
+    }
+}
+
 # Loop through each NSG
 foreach ($nsg in $nsgs) {
-    # Loop through each security rule in the NSG and collect details, excluding default rules
+    # Loop through each security rule in the NSG and collect details
     foreach ($rule in $nsg.SecurityRules) {
-        if ($rule.Name -notmatch "^[a-z]{3}-") { # Adjust this regex to match your default rule naming pattern
-            $ruleDetails = [PSCustomObject]@{
-                NSGName                = $nsg.Name
-                ResourceGroupName      = $nsg.ResourceGroupName
-                RuleName               = $rule.Name
-                Priority               = $rule.Priority
-                Direction              = $rule.Direction
-                Access                 = $rule.Access
-                Protocol               = $rule.Protocol
-                SourcePortRange        = $rule.SourcePortRange
-                DestinationPortRange   = $rule.DestinationPortRange
-                SourceAddressPrefix    = $rule.SourceAddressPrefix
-                DestinationAddressPrefix = $rule.DestinationAddressPrefix
-                Description            = $rule.Description
-            }
-            $nsgRules += $ruleDetails
+        $ruleDetails = [PSCustomObject]@{
+            NSGName                  = $nsg.Name
+            ResourceGroupName        = $nsg.ResourceGroupName
+            RuleName                 = $rule.Name
+            Priority                 = $rule.Priority
+            Direction                = $rule.Direction
+            Access                   = $rule.Access
+            Protocol                 = $rule.Protocol
+            SourcePortRange          = Join-List($rule.SourcePortRange)
+            DestinationPortRange     = Join-List($rule.DestinationPortRange)
+            SourceAddressPrefix      = Join-List($rule.SourceAddressPrefix)
+            DestinationAddressPrefix = Join-List($rule.DestinationAddressPrefix)
+            Description              = $rule.Description
         }
+        $nsgRules += $ruleDetails
+    }
+
+    # Loop through each default security rule in the NSG and collect details
+    foreach ($defaultRule in $nsg.DefaultSecurityRules) {
+        $defaultRuleDetails = [PSCustomObject]@{
+            NSGName                  = $nsg.Name
+            ResourceGroupName        = $nsg.ResourceGroupName
+            RuleName                 = $defaultRule.Name
+            Priority                 = $defaultRule.Priority
+            Direction                = $defaultRule.Direction
+            Access                   = $defaultRule.Access
+            Protocol                 = $defaultRule.Protocol
+            SourcePortRange          = Join-List($defaultRule.SourcePortRange)
+            DestinationPortRange     = Join-List($defaultRule.DestinationPortRange)
+            SourceAddressPrefix      = Join-List($defaultRule.SourceAddressPrefix)
+            DestinationAddressPrefix = Join-List($defaultRule.DestinationAddressPrefix)
+            Description              = $defaultRule.Description
+        }
+        $nsgRules += $defaultRuleDetails
     }
 }
 
